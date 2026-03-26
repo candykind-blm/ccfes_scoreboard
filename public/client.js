@@ -1,4 +1,26 @@
-const socket = io();
+// Socket.io初期化 + フォールバック
+let socket = null;
+let usePolling = false;
+let lastTeamsData = null;
+
+try {
+  if (typeof io !== 'undefined') {
+    socket = io();
+  } else {
+    usePolling = true;
+  }
+} catch (err) {
+  console.warn('Socket.io unavailable, using fallback polling', err);
+  usePolling = true;
+}
+
+// Socket.ioが接続できなかった場合のフォールバック処理
+if (socket) {
+  socket.on('connect_error', () => {
+    console.warn('Socket.io connection failed, switching to polling');
+    usePolling = true;
+  });
+}
 
 async function getTeams() {
   const res = await fetch('/api/teams');
@@ -188,16 +210,31 @@ async function initAdmin() {
 
   overlayToggleButton.onclick = async () => {
     overlayVisible = !overlayVisible;
-    socket.emit('toggle-overlay', overlayVisible);
+    if (socket) {
+      socket.emit('toggle-overlay', overlayVisible);
+    }
     updateOverlayButtonText();
   };
 
-  socket.on('overlay:visibility', ({ visible }) => {
-    overlayVisible = visible;
-    updateOverlayButtonText();
-  });
+  if (socket) {
+    socket.on('overlay:visibility', ({ visible }) => {
+      overlayVisible = visible;
+      updateOverlayButtonText();
+    });
 
-  socket.on('teams:update', (teams) => renderTeams(teams, root, false));
+    socket.on('teams:update', (teams) => renderTeams(teams, root, false));
+  }
+
+  // ポーリングフォールバック
+  if (usePolling) {
+    const pollAdmin = setInterval(async () => {
+      const teams = await getTeams();
+      if (JSON.stringify(teams) !== JSON.stringify(lastTeamsData)) {
+        renderTeams(teams, root, false);
+        lastTeamsData = teams;
+      }
+    }, 1000); // 1秒ごとにポーリング
+  }
 
   updateOverlayButtonText();
 }
@@ -215,8 +252,21 @@ async function initOverlay() {
     }
   };
 
-  socket.on('teams:update', (teams) => renderTeams(teams, root, true));
-  socket.on('overlay:visibility', ({ visible }) => setOverlayVisibility(visible));
+  if (socket) {
+    socket.on('teams:update', (teams) => renderTeams(teams, root, true));
+    socket.on('overlay:visibility', ({ visible }) => setOverlayVisibility(visible));
+  }
+
+  // ポーリングフォールバック
+  if (usePolling) {
+    const pollOverlay = setInterval(async () => {
+      const teams = await getTeams();
+      if (JSON.stringify(teams) !== JSON.stringify(lastTeamsData)) {
+        renderTeams(teams, root, true);
+        lastTeamsData = teams;
+      }
+    }, 1000); // 1秒ごとにポーリング
+  }
 }
 
 if (document.getElementById('admin-grid')) {

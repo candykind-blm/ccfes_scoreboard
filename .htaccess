@@ -1,0 +1,15 @@
+# ──────────────────────────────────────────────────────────────
+# fuicchiyuzo.caind.live — Apache リバースプロキシ設定
+# ドキュメントルート：/home/xs962916/caind.live/public_html/fuicchiyuzo.caind.live/
+# Node.js (Express + Socket.IO) ポート 3002 へ全リクエストを転送
+# 必要モジュール：mod_rewrite / mod_proxy / mod_proxy_http
+# ──────────────────────────────────────────────────────────────
+
+Options -MultiViews -Indexes
+RewriteEngine On
+
+# ── 全リクエスト（HTTP + Socket.IO long-polling）のプロキシ ──
+# WebSocket 接続をサポートするため、Upgrade ヘッダーが websocket の場合は ws:// へプロキシ
+RewriteCond %{HTTP:Upgrade} websocket [NC]
+RewriteRule ^(.*)$ ws://localhost:20262/$1 [P,L]
+RewriteRule ^(.*)$ http://localhost:20262/$1 [P,L]
