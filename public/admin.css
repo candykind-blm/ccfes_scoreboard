@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+body { font-family: "LineSeed Sans", "Noto Sans JP", "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f4f5f8; color: #2d2d2d; margin: 0; font-size: 1rem; }
+.page-container { width: min(100vw, 100%); margin: 0 auto; padding: 6px 6px 12px 6px; max-width: 1600px; }
+.page-header { margin-bottom: 8px; }
+.page-header h1 { margin: 0 0 8px; font-size: clamp(1.5rem, 2vw, 2rem); letter-spacing: 0.02em; }
+
+#control-bar { margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: space-between; background: #fff; border: 1px solid #d1d7e3; border-radius: 10px; padding: 8px 8px; position: sticky; top: 0; z-index: 10; }
+.fixed-control-bar { box-shadow: 0 1px 8px rgba(0,0,0,0.05); }
+.control-buttons { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+#control-bar p { margin: 0; color: #4f5666; font-size: 0.95rem; }
+
+#control-bar button { background: #ff4d4f; color: #fff; border: none; border-radius: 8px; padding: 10px 16px; cursor: pointer; font-weight: 700; transition: transform .14s ease, filter .14s ease; }
+#control-bar button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+#control-bar .primary { background: #2a7bff; }
+#control-bar .overlay-off { background: #8a8f99; }
+#control-bar .overlay-on { background: #14b8a6; }
+
+#overlay-status { margin-left: 12px; color: #1f3b74; font-weight: 700; font-size: 0.95rem; padding: 6px 10px; border-radius: 7px; background: #e8f7ff; border: 1px solid #b8daff; }
+#overlay-status.hidden { color: #b91c1c; background: #ffe4e6; border-color: #fca5a5; }
+#overlay-status.visible { color: #065f46; background: #dcfce7; border-color: #34d399; }
+
+.admin-grid { display: grid; grid-template-columns: repeat(5, minmax(168px, 1fr)); gap: 8px; }
+.team-card { background: #fff; border: 1px solid #d1d7e3; border-radius: 10px; padding: 8px; box-shadow: 0 1px 3px rgba(20, 28, 42, 0.08); transition: box-shadow .2s ease; min-height: 160px; display: flex; flex-direction: column; justify-content: space-between; }
+.team-card:hover { box-shadow: 0 2px 6px rgba(20, 28, 42, 0.12); }
+
+.team-name { font-size: 1.35rem; font-weight: 800; margin-bottom: 8px; color: #1b1f2b; }
+.team-score { font-size: 2.8rem; margin: 12px 0; color: #0a2341; font-weight: 800; }
+
+.action-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; margin-top: 10px; padding: 8px; border: 1px dashed #cfd6e3; border-radius: 10px; background: #fbfcff; }
+.action-group-title { font-size: 0.86rem; font-weight: 700; color: #2e436b; margin-bottom: 4px; }
+
+.actions { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+.actions button, .actions input { border-radius: 8px; border: 1px solid #bbc4d8; padding: 9px; font-size: 0.95rem; }
+.actions input { background: #f9fbff; }
+.actions button { cursor: pointer; background: #eef4ff; color: #1f3b74; font-weight: 700; transition: background .16s ease; }
+.actions button:hover { background: #dce8ff; }
+.actions button.primary { background: #2a7bff; color: #fff; border-color: #2a7bff; }
+.actions button.primary:hover { background: #1a65e5; }
+.actions button.fail { background: #ff7875; color: #fff; border-color: #ff7875; }
+.actions button.fail:hover { background: #e05355; }
+
+@media (max-width: 800px) {
+  .actions { grid-template-columns: 1fr; }
+  .team-score { font-size: 2.4rem; }
+  .team-name { font-size: 1.25rem; }
+}
+
+.actions { display: grid; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
+.action-group { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; padding: 6px; border-radius: 8px; border: 1px dashed #cfd6e3; background: #fbfcff; }
+.action-row { display: flex; gap: 6px; align-items: center; }
+.action-row input[type='number'] { flex: 1; min-width: 0; }
+.action-row button { flex: 0 0 auto; }
+.action-group-title { font-size: 0.78rem; font-weight: 700; color: #2e436b; margin-bottom: 2px; }
+.actions button, .actions input { border-radius: 6px; border: 1px solid #bbc4d8; padding: 7px; font-size: 0.85rem; }
+.actions input, .action-group input { background: #f9fbff; }
+.actions button, .action-group button { cursor: pointer; background: #eef4ff; color: #1f3b74; font-weight: 700; transition: background .12s ease; }
+.actions button:hover, .action-group button:hover { background: #dce8ff; }
+.actions button.primary, .action-group button.primary { background: #2a7bff; color: #fff; border-color: #2a7bff; }
+.actions button.primary:hover, .action-group button.primary:hover { background: #1a65e5; }
+.actions button.fail, .action-group button.fail { background: #ff7875; color: #fff; border-color: #ff7875; }
+.actions button.fail:hover, .action-group button.fail:hover { background: #e05355; }
+
+@media (max-width: 800px) {
+  .actions { grid-template-columns: 1fr; }
+  .team-score { font-size: 2rem; }
+}

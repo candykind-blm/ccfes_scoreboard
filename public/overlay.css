@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700;800&display=swap');
+
+/* ========================================================================== */
+/* 1.  Variables                                                              */
+/* ========================================================================== */
+
+:root {
+  --font-primary: "fot-rodin-pron";
+
+  --overlay-width: 90vw;
+  --overlay-height: 95vh;
+  --overlay-max-width: 1920px;
+  --overlay-max-height: 1080px;
+
+  --overlay-bg: transparent;
+
+  --team-name-bg: #e50000;
+  --team-name-color: #fff;
+  --team-name-font-size: 40px;
+
+  --team-score-bg: #000;
+  --team-score-color: #ffea00;
+  --team-score-font-size: 100px;
+  --team-score-shadow: inset 0 0 14px rgba(255, 255, 255, 0.16);
+  --team-score-text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+
+  --overlay-padding: 14px;
+  --overlay-gap: 14px;
+  --card-padding: 10px;
+}
+
+/* ========================================================================== */
+/* 2.  Base Styles                                                            */
+/* ========================================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--overlay-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ========================================================================== */
+/* 3.  Wrapper Layout                                                         */
+/* ========================================================================== */
+
+.wrapper {
+  position: relative;
+  width: var(--overlay-width);
+  height: var(--overlay-height);
+  max-width: var(--overlay-max-width);
+  max-height: var(--overlay-max-height);
+
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.overlay-viewport {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 360px;
+  height: auto;
+  padding: var(--overlay-padding);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-auto-rows: minmax(0, auto);
+  gap: var(--overlay-gap);
+
+  background: transparent;
+  border-radius: 12px;
+  align-content: start;
+}
+
+.overlay-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 0;
+  border: 5px solid #252525;
+  background: #e50000;
+  border-radius: 12px;
+  padding: var(--card-padding);
+  overflow: visible;
+  transition: transform 0.18s ease;
+}
+
+.overlay-item:hover {
+  transform: translateY(-1px);
+}
+
+/* ========================================================================== */
+/* 4.  Team Card Styles                                                       */
+/* ========================================================================== */
+
+.team-name {
+  font-family: "LINE Seed JP", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  width: 100%;
+  text-align: center;
+
+  background: var(--team-name-bg);
+  color: var(--team-name-color);
+  font-size: clamp(20px, 1.8vw, 30px);
+
+  padding: 12px 8px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 2px solid #b00000;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
+.team-score {
+  margin-top: 0;
+  width: 100%;
+  text-align: center;
+
+  background: #252525;
+  color: #fff25e;
+  font-size: clamp(44px, 4.4vw, 82px);
+  font-weight: 800;
+  line-height: 1;
+  padding: 12px 0 10px;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.45);
+}
+
+.overlay-item .team-score {
+  width: 100%;
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --overlay-padding: 10px;
+    --overlay-gap: 10px;
+    --card-padding: 8px;
+  }
+
+  .team-name {
+    padding: 10px 6px;
+  }
+
+  .team-score {
+    padding: 16px 0 14px;
+  }
+}

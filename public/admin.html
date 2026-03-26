@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>得点ボード 管理</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="admin.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main class="page-container">
+      <header class="page-header">
+        <h1>得点ボード 管理画面</h1>
+      </header>
+
+      <section id="control-bar" class="fixed-control-bar">
+        <div class="control-buttons">
+          <button id="reset">全リセット</button>
+          <button id="overlay-toggle" class="primary">
+            オーバーレイ非表示
+          </button>          <span id="overlay-status" class="overlay-status">オーバーレイ: 表示中</span>        </div>
+        <p>チームごとに「加算/減算（Δ）」と「合計直接設定（=）」を分けて操作できます。<br>入力欄の見出しを確認して、意図した操作を行ってください。</p>
+      </section>
+
+      <section id="admin-grid" class="admin-grid"></section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
